@@ -2,6 +2,7 @@
 
 from amazon.api import AmazonAPI
 import bottlenose.api
+import urllib2
 import re
 import config as CONFIG
 
@@ -9,24 +10,49 @@ import config as CONFIG
 
 class AmazonBook:
 
+
     def __init__(self):
-        self.p_book = AmazonAPI(CONFIG.AMAZON_ACCESS_KEY,
+        self.p_amazon = AmazonAPI(CONFIG.AMAZON_ACCESS_KEY,
                 CONFIG.AMAZON_SECRET_KEY,
                 CONFIG.AMAZON_ASSOCIATE_TAG,
                 region=CONFIG.PRIMARY_REGION)
-        self.s_book = AmazonAPI(CONFIG.AMAZON_ACCESS_KEY,
+        self.s_amazon = AmazonAPI(CONFIG.AMAZON_ACCESS_KEY,
                 CONFIG.AMAZON_SECRET_KEY,
                 CONFIG.AMAZON_ASSOCIATE_TAG,
                 region=CONFIG.SECONDARY_REGION)
 
-    def lookup(self, isbn13):
+
+    def lookup(self, isbn13, step="Primary"):
         if self.isbn_validation(self.isbn_format(isbn13)) == False:
             return None
+
         isbn13 = self.isbn_format(isbn13)
+        remained = CONFIG.ATTEMPTS
+
+        while (remained > 0):
+            try:
+                if step is "Primary":
+                    book = self.p_amazon.lookup(ItemId=isbn13, IdType="ISBN", SearchIndex="Books")
+                elif step is "Secondary":
+                    book = self.s_amazon.lookup(ItemId=isbn13, IdType="ISBN", SearchIndex="Books")
+                return book
+            except urllib2.HTTPError, e:
+                if e.code == 400:
+                    if step is "Primary":
+                        return self.lookup(isbn13, "Secondary")
+                    else:
+                        return None
+                elif e.code == 503:
+                    remained = remained - 1
+                    continue
+                else:
+                    return None
+
 
     def isbn_format(self, isbn13):
         isbn13 = isbn13.replace("-", "").replace(" ", "")
         return isbn13
+
 
     def isbn_validation(self, isbn13):
         isbn13 = self.isbn_format(isbn13)
