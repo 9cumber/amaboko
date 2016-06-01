@@ -43,8 +43,11 @@ class AmazonBook:
                     else:
                         return None
                 elif e.code == 503:
-                    remained = remained - 1
-                    continue
+                    if remained == 0:
+                        return None
+                    else:
+                        remained = remained - 1
+                        continue
                 else:
                     return None
 
