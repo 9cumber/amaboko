@@ -17,3 +17,30 @@ Choose 2 regions for endpoints, primary and secondary. If specified book informa
 ### Usage
 
 **APIAccessKey, APISecretKey, AssocTag are loaded from `config.py`. Please remember to prepare that.**
+
+```
+>>> import api
+>>> a = api.AmazonBook()
+
+>>> isbn = "9784048816592"
+>>> print a.isbn_validation(isbn)
+False
+
+>>> isbn = "9781433551666"
+>>> print a.isbn_validation(isbn)
+True
+
+>>> book = a.lookup(isbn)
+
+>>> print book.title
+Holy Bible: English Standard Version, Value Compact Bible, Trutone Turquoise, Emblem Design
+
+>>> print book.large_image_url
+http://ecx.images-amazon.com/images/I/412mbT1AvIL.jpg
+
+>>> print book.get_attribute('Publisher')
+Crossway Books
+
+>>> print book.price_and_currency
+('1531', 'JPY')
+```
