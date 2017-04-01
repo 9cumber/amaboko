@@ -52,9 +52,9 @@ class AmazonBook(object):
         self.s_amazon = AmazonAPI(
             access_key, secret_key, associate_tag, region=secondary_region)
 
-    def get_amazon(self, is_primary=True):
+    def get_amazon(self, use_secondary=False):
         # type: (bool) -> AmazonAPI
-        return self.p_amazon if is_primary else self.s_amazon
+        return self.p_amazon if not use_secondary else self.s_amazon
 
     def single_lookup(self, isbn13, amazon):
         # type: (str, AmazonAPI) -> AmazonProduct
@@ -84,7 +84,7 @@ class AmazonBook(object):
         should_check_secondary = False
         while remained > 0:
             try:
-                amazon = self.get_amazon(not should_check_secondary)
+                amazon = self.get_amazon(should_check_secondary)
 
                 book = self.single_lookup(isbn13, amazon)
                 if book is not None:
