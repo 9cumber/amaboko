@@ -22,6 +22,7 @@ def is_isbn_validate(isbn13):
     # type: (str) -> bool
 
     import re
+    isbn13 = normalize_isbn_format(isbn13)
     check_digit = int(isbn13[-1])
     num_filtered = re.search(r'^(\d{12})$', isbn13[:-1])
     if not num_filtered:
