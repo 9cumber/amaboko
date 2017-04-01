@@ -2,7 +2,7 @@ from setuptools import setup
 
 import os
 
-
+long_description = None
 if os.path.exists('README.md'):
     long_description = open('README.md').read()
 
@@ -11,7 +11,7 @@ setup(
     name='amaboko',
     version='0.0.1',
     description='get book information by ISBN in some regions',
-    long_description=open('README.md').read(),
+    long_description=long_description,
     license="MIT",
     keywords="amazon",
     author='9cumber team',
