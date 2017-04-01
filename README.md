@@ -19,15 +19,15 @@ Choose 2 regions for endpoints, primary and secondary. If specified book informa
 **APIAccessKey, APISecretKey, AssocTag are loaded from `config.py`. Please remember to prepare that.**
 
 ```
->>> import api
->>> a = api.AmazonBook()
+>>> from amabako import AmazonBook, is_isbn_validate
+>>> a = AmazonBook()
 
 >>> isbn = "9784048816592"
->>> print a.isbn_validation(isbn)
+>>> print is_isbn_validate(isbn)
 False
 
 >>> isbn = "9781433551666"
->>> print a.isbn_validation(isbn)
+>>> print is_isbn_validate(isbn)
 True
 
 >>> book = a.lookup(isbn)
