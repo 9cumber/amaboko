@@ -15,7 +15,7 @@ $ pip install -r requirements.txt
 
 Choose 2 regions for endpoints, primary and secondary. If specified book information was not found in primary region, instead of that, this module will automatically get the information from secondary region. Of course, you can't necessarily get the information you want.
 
-### Preparation
+### Preparation for test
 
 set environment variable **APIAccessKey, APISecretKey, AssocTag**.
 
@@ -37,7 +37,7 @@ AMAZON_SECRET_KEY = "APISecretKey"
 AMAZON_ASSOC_TAG = "AssocTag"
 ```
 
-If you didn't do above both of the above settings, you should pass those variables when you instantiate AmazonBook class.
+If you didn't do above both of the above settings, you should pass those variables when you instantiate AmazonBook class. In the case of you imported this module, you have got to pass variables to AmazonBook constructor.
 
 ### Usage
 
