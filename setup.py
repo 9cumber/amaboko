@@ -18,5 +18,4 @@ setup(
     author_email='micfall.romtin@gmail.com',
     url='https://github.com/9cumber/amaboko',
     packages=['amaboko'],
-    install_requires=['typing', 'python-amazon-simple-product-api
-'])
+    install_requires=['typing', 'python-amazon-simple-product-api'])
