@@ -9,7 +9,7 @@ if os.path.exists('README.md'):
 
 setup(
     name='amaboko',
-    version='0.0.1',
+    version='0.0.2',
     description='get book information by ISBN in some regions',
     long_description=long_description,
     license="MIT",
