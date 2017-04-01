@@ -85,6 +85,10 @@ class AmazonBook(object):
         while remained > 0:
             try:
                 amazon = self.get_amazon(should_check_secondary)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a26e65... 条件を入れ替え
                 book = self.single_lookup(isbn13, amazon)
                 if book is not None:
                     return book
