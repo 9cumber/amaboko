@@ -85,7 +85,6 @@ class AmazonBook(object):
         while remained > 0:
             try:
                 amazon = self.get_amazon(should_check_secondary)
-
                 book = self.single_lookup(isbn13, amazon)
                 if book is not None:
                     return book
