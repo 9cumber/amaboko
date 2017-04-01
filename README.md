@@ -1,22 +1,47 @@
-# Amazon Book Information API
+# amaboko - Amazon Book Information API
 
 just wrapping [Amazon Simple Product API](https://github.com/yoavaviram/python-amazon-simple-product-api)
 
 ### Dependencies
-* Python 2.7.x (no guarantee for any other versions)
-* Amazon Simlpe Product API - pip
-* Bottlenose - pip
-* dateutil - pip
+* Python 2.7.x
 * Amazon Product Advertising account (for APIAccessKey, APISecretKey)
 * AWS account (for AmazonAssociateTag)
+
+```
+$ pip install -r requirements.txt
+```
 
 ### Description
 
 Choose 2 regions for endpoints, primary and secondary. If specified book information was not found in primary region, instead of that, this module will automatically get the information from secondary region. Of course, you can't necessarily get the information you want.
 
+### Preparation for test
+
+set environment variable **APIAccessKey, APISecretKey, AssocTag**.
+
+```
+$ AMAZON_ACCESS_KEY = "APIAccessKey"
+$ AMAZON_SECRET_KEY = "APISecretKey"
+$ AMAZON_ASSOC_TAG = "AssocTag"
+```
+
+or create `test_settings.py`
+
+```
+$ vim test_settings.py
+```
+
+```
+AMAZON_ACCESS_KEY = "APIAccessKey"
+AMAZON_SECRET_KEY = "APISecretKey"
+AMAZON_ASSOC_TAG = "AssocTag"
+```
+
+If you didn't do above both of the above settings, you should pass those variables when you instantiate AmazonBook class. In the case of you imported this module, you have got to pass variables to AmazonBook constructor.
+
 ### Usage
 
-**APIAccessKey, APISecretKey, AssocTag are loaded from `config.py`. Please remember to prepare that.**
+You can set primary and secondary regions from `["US", "FR", "CN", "UK", "IN", "CA", "DE", "JP", "IT", "ES"]` in instantiation. (default regions are "JP" and "US")
 
 ```
 >>> from amabako import AmazonBook, is_isbn_validate
