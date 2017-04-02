@@ -57,11 +57,13 @@ class AmazonBook(object):
         # type: (bool) -> AmazonAPI
         return self.p_amazon if not use_secondary else self.s_amazon
 
-    def single_lookup(self, isbn13, amazon):
+    def single_lookup(self, isbn13, amazon, **kwargs):
         # type: (str, AmazonAPI) -> AmazonProduct
+        if 'ItemId' not in kwargs:
+            kwargs.update({'ItemId': isbn13})
+
         try:
-            return amazon.lookup(
-                ItemId=isbn13, IdType="ISBN", SearchIndex="Books")
+            return amazon.lookup(**kwargs)
         except HTTPError as error:
             if error.code == 400:
                 raise NotFoundException
@@ -70,16 +72,16 @@ class AmazonBook(object):
             else:
                 raise
 
-    def lookup(self, isbn13):
+    def lookup(self, isbn13, **kwargs):
         # type: (str) -> Union[AmazonProduct, None]
         isbn13 = normalize_isbn_format(isbn13)
 
         if is_isbn_validate(isbn13) is False:
             return None
 
-        return self._lookup(isbn13)
+        return self._lookup(isbn13, **kwargs)
 
-    def _lookup(self, isbn13):
+    def _lookup(self, isbn13, **kwargs):
         # type: (str) -> Union[AmazonProduct, None]
         remained = self.ATTEMPTS
         should_check_secondary = False
@@ -87,7 +89,7 @@ class AmazonBook(object):
             try:
                 amazon = self.get_amazon(should_check_secondary)
 
-                book = self.single_lookup(isbn13, amazon)
+                book = self.single_lookup(isbn13, amazon, **kwargs)
                 if book is not None:
                     return book
 
