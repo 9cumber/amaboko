@@ -45,7 +45,7 @@ You can set primary and secondary regions from `["US", "FR", "CN", "UK", "IN", "
 
 ```
 >>> from amabako import AmazonBook, is_isbn_validate
->>> a = AmazonBook()
+>>> a = AmazonBook(access_key, secret_key, assoc_tag)
 
 >>> isbn = "9784048816592"
 >>> print is_isbn_validate(isbn)
@@ -55,7 +55,7 @@ False
 >>> print is_isbn_validate(isbn)
 True
 
->>> book = a.lookup(isbn)
+>>> book = a.lookup(isbn, IdType="ISBN", SearchIndex="Books")
 
 >>> print book.title
 Holy Bible: English Standard Version, Value Compact Bible, Trutone Turquoise, Emblem Design

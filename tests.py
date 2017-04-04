@@ -40,7 +40,8 @@ class TestAmazonBook(unittest.TestCase):
             print "-- This is test for " + isbn
             print "| " + normalize_isbn_format(isbn)
             print "| " + str(is_isbn_validate(isbn))
-            books = self.amazon.lookup(isbn)
+            kwargs = {"IdType": "ISBN", "SearchIndex": "Books"}
+            books = self.amazon.lookup(isbn, **kwargs)
             book = books[0] if isinstance(books, list) else books
             if book is not None:
                 print "| " + book.title
