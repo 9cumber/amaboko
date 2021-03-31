@@ -4,8 +4,15 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-bottlenose==1.1.2         # via python-amazon-simple-product-api
-lxml==3.7.3               # via python-amazon-simple-product-api
+bottlenose==1.1.2
+    # via python-amazon-simple-product-api
+lxml==4.6.3
+    # via python-amazon-simple-product-api
 python-amazon-simple-product-api==2.2.11
-python-dateutil==2.6.0    # via python-amazon-simple-product-api
-six==1.10.0               # via python-dateutil
+    # via -r requirements.in
+python-dateutil==2.6.0
+    # via python-amazon-simple-product-api
+six==1.10.0
+    # via python-dateutil
+typing==3.7.4.3
+    # via -r requirements.in
